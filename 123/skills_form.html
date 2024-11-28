@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Skills Form</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f4f4f9;
+        }
+        form {
+            max-width: 600px;
+            margin: auto;
+            padding: 20px;
+            background: #ffffff;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.1);
+        }
+        label {
+            font-weight: bold;
+            display: block;
+            margin: 10px 0 5px;
+        }
+        select, input {
+            width: 100%;
+            padding: 10px;
+            margin: 5px 0 15px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+   <form id="skillsForm" action="process_skills.php" method="POST">
+
+        <h2>Enter Your Details</h2>
+        
+        <label for="username">Username:</label>
+        <input type="text" id="username" name="username" placeholder="Enter your username" required>
+        
+        <label for="skills">Select Your Skills:</label>
+        <select id="skills" name="skills">
+            <option value="Python">Python</option>
+            <option value="Machine Learning">Machine Learning</option>
+            <option value="Django">Django</option>
+            <option value="HTML">HTML</option>
+            <option value="CSS">CSS</option>
+            <option value="JavaScript">JavaScript</option>
+            <option value="Flask">Flask</option>
+            <option value="Node.js">Node.js</option>
+            <option value="React.js">React.js</option>
+            <option value="MongoDB">MongoDB</option>
+            <option value="Express.js">Express.js</option>
+            <option value="Bootstrap">Bootstrap</option>
+            <option value="PostgreSQL">PostgreSQL</option>
+            <option value="SQL">SQL</option>
+            <option value="TensorFlow">TensorFlow</option>
+            <option value="Keras">Keras</option>
+            <option value="Scikit-learn">Scikit-learn</option>
+            <option value="Pandas">Pandas</option>
+            <option value="NumPy">NumPy</option>
+            <option value="Data Visualization">Data Visualization</option>
+        </select>
+        
+        <label for="selectedSkills">Selected Skills (Editable):</label>
+        <input type="text" id="selectedSkills" name="selectedSkills" placeholder="Selected skills will appear here (editable)">
+        
+        <button type="submit">Submit</button>
+    </form>
+
+    <script>
+        const skillsDropdown = document.getElementById('skills');
+        const selectedSkillsBox = document.getElementById('selectedSkills');
+
+        skillsDropdown.addEventListener('change', function () {
+            const selectedValue = skillsDropdown.value;
+            let currentSkills = selectedSkillsBox.value.split(',').map(skill => skill.trim()).filter(skill => skill);
+
+            if (!currentSkills.includes(selectedValue)) {
+                if (currentSkills.length < 6) {
+                    currentSkills.push(selectedValue);
+                    selectedSkillsBox.value = currentSkills.join(', ');
+                } else {
+                    alert('You can only select up to 6 skills.');
+                }
+            } else {
+                alert('Skill already added.');
+            }
+        });
+
+        selectedSkillsBox.addEventListener('input', function () {
+            let currentSkills = selectedSkillsBox.value.split(',').map(skill => skill.trim()).filter(skill => skill);
+
+            if (currentSkills.length > 6) {
+                alert('You can only have up to 6 skills.');
+                selectedSkillsBox.value = currentSkills.slice(0, 6).join(', ');
+            }
+        });
+    </script>
+</body>
+</html>
